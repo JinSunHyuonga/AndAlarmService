@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hello</string>
+    <string name="config">확인</string>
+    <string name="hi">hi</string>
+    <string name="naverURL">네이버접속</string>
+    <string name="call">전화걸기</string>
+    <string name="imageChange">이미지변경</string>
+</resources>
