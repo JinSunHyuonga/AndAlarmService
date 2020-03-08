@@ -1,12 +1,19 @@
 package org.pro.AndAlarmService;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView2;
     int imageIndex = 1;
     TextView textView;
+    EditText sendText;
 
     GestureDetector detector;
 
@@ -28,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
         imageView2 = findViewById(R.id.imageView2);
         imageView2.setVisibility(View.INVISIBLE);
         textView = findViewById(R.id.textView2);
+        sendText = findViewById(R.id.sendText);
 
+        //클릭 위치 표현
         View view = findViewById(R.id.view);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -50,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //뷰 화면에 대한 여러 이벤트
         detector = new GestureDetector(this, new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
@@ -92,6 +103,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //화면전환 및 메시지 전달
+        Button button6 = findViewById(R.id.button6);
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {0
+                Intent intent = new Intent(getApplicationContext(), menuActivity.class);
+                intent.putExtra("textMessages", sendText.getText().toString());
+                startActivityForResult(intent, 101);
+            }
+        });
+
     }
 
     public  void println(String data){
@@ -102,24 +125,34 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "확인1 버튼이 눌렸어요.", Toast.LENGTH_LONG).show();
     }
 
+    //사이트 연동
     public void onButton2Clicked(View v) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://m.naver.com"));
         startActivity(intent);
     }
 
+    //전화 걸기
     public void onButton3Clicked(View v) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:010-2213-7527"));
         startActivity(intent);
     }
 
+    //토스트 위치 변경
     public void onButton4Clicked(View v) {
-        Toast.makeText(this, "Hi 버튼이 눌렸어요.", Toast.LENGTH_LONG).show();
+        Toast myToast = Toast.makeText(this.getApplicationContext(),"Hi 버튼이 눌렸어요.", Toast.LENGTH_SHORT);
+
+        myToast.setGravity(Gravity.CENTER, 0,300 );
+        //레이아웃 통으로 띄우기
+        //View toastLayout = getLayoutInflater().inflate(R.layout.activity_main, null);
+        //myToast.setView(toastLayout);
+        myToast.show();
     }
 
     public void onButton5Clicked(View v) {
         changeImage();
     }
 
+    //이미지 전환하기
     public  void changeImage() {
         if (imageIndex == 0){
             imageView.setVisibility(View.VISIBLE);
@@ -132,5 +165,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    //화면전환 및 메시지 전달
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101) {
+            if (data != null) {
+                String textMessages = data.getStringExtra("textMessages");
+                if (textMessages != null) {
+                    sendText.setText(textMessages);
+                }
+            }
+        }
+    }
 }
