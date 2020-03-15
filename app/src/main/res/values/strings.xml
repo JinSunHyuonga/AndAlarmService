@@ -5,4 +5,5 @@
     <string name="naverURL">네이버접속</string>
     <string name="call">전화걸기</string>
     <string name="imageChange">이미지변경</string>
+    <string name="pageChange">화면전환</string>
 </resources>

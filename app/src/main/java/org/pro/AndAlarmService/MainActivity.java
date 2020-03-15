@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         Button button6 = findViewById(R.id.button6);
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {0
+            public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), menuActivity.class);
                 intent.putExtra("textMessages", sendText.getText().toString());
                 startActivityForResult(intent, 101);
