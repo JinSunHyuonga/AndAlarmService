@@ -6,4 +6,5 @@
     <string name="call">전화걸기</string>
     <string name="imageChange">이미지변경</string>
     <string name="pageChange">화면전환</string>
+    <string name="datasend">데이터전송</string>
 </resources>

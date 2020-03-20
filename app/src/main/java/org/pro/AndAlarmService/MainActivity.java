@@ -115,6 +115,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //데이터 전달 화면으로 이동
+        Button button7 = findViewById(R.id.button7);
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), datasendActivity.class);
+                intent.putExtra("textMessages", sendText.getText().toString());
+                startActivityForResult(intent, 102);
+            }
+        });
+
     }
 
     public  void println(String data){
